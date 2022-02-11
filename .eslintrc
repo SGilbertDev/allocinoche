@@ -1,0 +1,17 @@
+{
+  "extends": "react-app",
+  "settings": {
+    "import/resolver": {
+      "alias": {
+        "map": [
+          ["@components", "./src/components"],
+          ["@context", "./src/context"],
+          ["@core", "./src/core"],
+          ["@pages", "./src/padges"],
+          ["@styles", "./src/styles"]
+        ],
+        "extensions": [".ts", ".tsx", ".js", ".jsx", ".json"]
+      }
+    }
+  }
+}
