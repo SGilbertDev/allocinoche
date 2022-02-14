@@ -22,7 +22,7 @@ export default function Related({ movies }: Props) {
       <h4>You may also like</h4>
       <Grid container spacing={2} justifyContent="center">
         {movies.map((movie) => (
-          <Grid item xs={3}>
+          <Grid key={movie.id} item xs={3}>
             <MovieCard movie={movie} />
           </Grid>
         ))}

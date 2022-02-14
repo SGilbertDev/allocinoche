@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, Fragment } from "react";
 import { useQueries } from "react-query";
 import { useRecoilState } from "recoil";
 import { Grid, Container, Link, Button } from "@mui/material";
@@ -29,10 +29,10 @@ export default function Favorite() {
         <h2>My favorites</h2>
         {!!favoritesQuery.length && (
           <Grid key={favorites.length} container spacing={5}>
-            {favoritesQuery?.map(({ data }: any) => (
-              <Grid item xs={12} sm={6} md={3}>
+            {favoritesQuery?.map((queryResults: any, index: any) => (
+              <Grid key={queryResults?.data?.data.id || index} item xs={12} sm={6} md={3}>
                 <MovieCard
-                  movie={new Movie(data?.data)}
+                  movie={new Movie(queryResults?.data?.data)}
                   showFavorite
                   removeFavorite={(id) =>
                     setFavorites(Movie.toggleFavorite(true, favorites, id))

@@ -81,9 +81,11 @@ export default class Movie implements MovieInterface {
 
   getImageLink(path: string, width?: number) {
     const validWidth = [200, 300, 400, 1280];
-    return `https://image.tmdb.org/t/p/${
-      width && validWidth.includes(width) ? "w" + width : "original"
-    }${path}`;
+    return path
+      ? `https://image.tmdb.org/t/p/${
+          width && validWidth.includes(width) ? "w" + width : "original"
+        }${path}`
+      : "";
   }
 
   getMoviePoster(width?: number) {
@@ -97,6 +99,6 @@ export default class Movie implements MovieInterface {
   getTruncatedOverview(limit: number = 200) {
     return this.overview?.length > limit
       ? `${this.overview.substring(0, limit)}...`
-      : this.overview || '';
+      : this.overview || "";
   }
 }

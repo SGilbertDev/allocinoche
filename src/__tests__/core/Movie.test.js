@@ -69,6 +69,9 @@ describe("methods", () => {
         "https://image.tmdb.org/t/p/w200/3VFI3zbuNhXzx7dIbYdmvBLekyB.jpg"
       );
     });
+    it("should return an empty string if not path is provided", () => {
+      expect(movieInstance.getImageLink()).toEqual("");
+    });
   });
   describe("getMoviePoster(width)", () => {
     it("should return poster path", () => {
