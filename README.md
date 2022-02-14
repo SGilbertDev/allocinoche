@@ -37,12 +37,12 @@ yarn test --coverage # With coverage
 │   ├── __tests__ # Jest tests
 │   ├── assets # Media assets (images)
 │   ├── components # Components used by the pages
-│   ├── context # Contexts
+│   ├── context # React contexts
 │   ├── core # Core classes
 │   ├── hooks # Custom hooks
 │   ├── pages # App pages
 │   ├── recoil # Recoil atoms
-│   └── styles # Global styling and mediaQueries helper
+│   └── styles # Global styling
 ├── tsconfig.json
 ├── tsconfig.path.json
 └── yarn.lock
