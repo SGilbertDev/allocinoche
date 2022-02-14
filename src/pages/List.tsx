@@ -70,6 +70,7 @@ export default function List() {
   const { pages: moviePageData } = { ...movieDetailsData };
   const loadMoreRef = useRef<HTMLDivElement>(null);
 
+  // Check if the user is at the bottom of the document and use fetchNextPage callback
   useIntersectionObserver({
     target: loadMoreRef,
     onIntersect: fetchNextPage,

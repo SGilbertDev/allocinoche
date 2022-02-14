@@ -100,10 +100,7 @@ const StyledHeroBackground = styled.div<{ $backdrop_path?: string }>`
       rgba(0, 0, 0, 1) 0%,
       rgba(0, 0, 0, 0.3463979341736695) 100%
     ),
-    ${({ $backdrop_path }) =>
-      $backdrop_path
-        ? `url(https://image.tmdb.org/t/p/original${$backdrop_path})`
-        : ""};
+    ${({ $backdrop_path }) => ($backdrop_path ? `url(${$backdrop_path})` : "")};
   display: flex;
   align-items: flex-end;
   opacity: 1;
@@ -167,15 +164,13 @@ export default function HeroHeader({
   return (
     <>
       <StyledHeroBackground
-        $backdrop_path={selectedMovie?.backdrop_path}
+        $backdrop_path={selectedMovie?.getMovieBackdrop()}
         className={transition ? "transition" : ""}
       />
       <StyledHeroHeader className={transition ? "transition" : ""}>
         <Container maxWidth="lg">
           <h2>{selectedMovie?.title}</h2>
-          <p className="overview">
-            {selectedMovie?.getTruncatedOverview()}
-          </p>
+          <p className="overview">{selectedMovie?.getTruncatedOverview()}</p>
           <Link to={`movie/${selectedMovie?.id}`}>
             <Button>See more</Button>
           </Link>

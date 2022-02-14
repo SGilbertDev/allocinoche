@@ -82,8 +82,6 @@ export default function MovieItem() {
   const movie = new Movie(movieData);
   const isFavorite = movie.isFavorite(favorites);
 
-  console.log("movieData", movieData);
-
   return (
     <Layout isFullscreen isLoading={isLoading || isLoadingMovieRecommendations}>
       <FavoriteToast

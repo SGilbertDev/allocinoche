@@ -95,8 +95,8 @@ export default class Movie implements MovieInterface {
   }
 
   getTruncatedOverview(limit: number = 200) {
-    return this.overview.length || 0 > limit
+    return this.overview?.length > limit
       ? `${this.overview.substring(0, limit)}...`
-      : this.overview;
+      : this.overview || '';
   }
 }
