@@ -1,20 +1,40 @@
 import React, { useContext } from "react";
 import { useQuery } from "react-query";
+import { createGlobalStyle } from "styled-components";
 
-import HeroHeader from "@components/HeroHeader";
-import Layout from "../Layout";
-import MoviesContext from "@context/MoviesContext";
+import HeroHeader from "@components/Home/HeroHeader";
+import MovieApiContext from "@context/MovieApiContext";
+import Movie from "@core/Movie";
+import Layout from "@components/Layout";
+
+// Force overflow hidden on parent element
+const AppGlobalStyle = createGlobalStyle`
+  .App {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+  }
+`;
 
 export default function Home() {
-  const moviesInstance = useContext(MoviesContext);
+  const movieApiInstance = useContext(MovieApiContext);
 
-  const upcomingHeroQuery = useQuery("upcoming-hero", () =>
-    moviesInstance.fetchUpcomingMovies()
-  );
+  const {
+    data: upcomingMoviesData,
+    status,
+    isLoading,
+  } = useQuery("upcoming-hero", () => movieApiInstance.fetchUpcomingMovies());
 
   return (
-    <Layout isFullscreen>
-      <HeroHeader upcomingHeroQuery={upcomingHeroQuery} />
+    <Layout isFullscreen isLoading={isLoading}>
+      <AppGlobalStyle />
+      <HeroHeader
+        movies={upcomingMoviesData?.data.results.map(
+          (movie: MovieInterface) => new Movie(movie)
+        )}
+        queryStatus={status}
+      />
     </Layout>
   );
 }

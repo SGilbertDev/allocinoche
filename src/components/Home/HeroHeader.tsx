@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { QueryObserverBaseResult } from "react-query/types/core/types";
 import Slider from "react-slick";
 import { Link } from "react-router-dom";
 import { Container, Button } from "@mui/material";
 
+import Movie from "@core/Movie";
 import useWindowDimensions from "@hooks/useWindowDimensions";
 
 const StyledHeroHeader = styled.div`
@@ -102,7 +102,7 @@ const StyledHeroBackground = styled.div<{ $backdrop_path?: string }>`
     ),
     ${({ $backdrop_path }) =>
       $backdrop_path
-        ? `url(https://image.tmdb.org/t/p/w1280${$backdrop_path})`
+        ? `url(https://image.tmdb.org/t/p/original${$backdrop_path})`
         : ""};
   display: flex;
   align-items: flex-end;
@@ -125,22 +125,17 @@ const StyledHeroBackground = styled.div<{ $backdrop_path?: string }>`
   }
 `;
 
-const OVERVIEW_CHARS_LIMIT = 200;
-
 export default function HeroHeader({
-  upcomingHeroQuery,
+  movies,
+  queryStatus,
 }: {
-  upcomingHeroQuery: QueryObserverBaseResult<{
-    data: { results: MovieInterface[] };
-  }>;
+  movies: Movie[];
+  queryStatus: string;
 }) {
-  const [selectedMovie, setSelectedMovie] = useState<MovieInterface>();
+  const [selectedMovie, setSelectedMovie] = useState<Movie>();
   const [transition, setTransition] = useState(false);
   const { width } = useWindowDimensions();
   const slidesToShow = Math.floor(Math.min(width || 0, 1200) / 160);
-
-  const { data: upcomingMoviesData, status } = upcomingHeroQuery;
-  const results = upcomingMoviesData?.data.results;
 
   const sliderSettings = {
     focusOnSelect: true,
@@ -157,17 +152,17 @@ export default function HeroHeader({
       setTransition(true);
       setTimeout(() => {
         setTransition(false);
-        setSelectedMovie(results?.[next]);
+        setSelectedMovie(movies[next]);
       }, 400);
     },
   };
 
   // Add movie item on load when the query is successful by checking its status
   useEffect(() => {
-    if (status === "success") {
-      setSelectedMovie(results?.[0]);
+    if (queryStatus === "success") {
+      setSelectedMovie(movies[0]);
     }
-  }, [status]);
+  }, [queryStatus]);
 
   return (
     <>
@@ -179,24 +174,19 @@ export default function HeroHeader({
         <Container maxWidth="lg">
           <h2>{selectedMovie?.title}</h2>
           <p className="overview">
-            {selectedMovie?.overview?.length || 0 > OVERVIEW_CHARS_LIMIT
-              ? `${selectedMovie?.overview.substring(
-                  0,
-                  OVERVIEW_CHARS_LIMIT
-                )}...`
-              : selectedMovie?.overview}
+            {selectedMovie?.getTruncatedOverview()}
           </p>
           <Link to={`movie/${selectedMovie?.id}`}>
             <Button>See more</Button>
           </Link>
           <div className="slider-container">
             <Slider {...sliderSettings}>
-              {results?.map((movie) => (
+              {movies?.map((movie) => (
                 <div key={movie.id} className="movie-item">
                   <div
                     className="movie-item__poster"
                     style={{
-                      backgroundImage: `url(https://image.tmdb.org/t/p/w200${movie.poster_path})`,
+                      backgroundImage: `url(${movie.getMoviePoster(200)})`,
                     }}
                   />
                   <p>{movie.title}</p>

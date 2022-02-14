@@ -4,7 +4,7 @@ import { CssBaseline } from "@mui/material";
 
 import Home from "@pages/Home";
 import List from "@pages/List";
-import Movie from "@pages/Movie";
+import MovieItem from "@pages/MovieItem";
 import Favorite from "@pages/Favorite";
 import NotFound from "@pages/NotFound";
 
@@ -17,7 +17,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/list" element={<List />} />
-        <Route path="/movie/:id" element={<Movie />} />
+        <Route path="/movie/:id" element={<MovieItem />} />
         <Route path="/favorite" element={<Favorite />} />
         <Route path="*" element={<NotFound />} />
       </Routes>

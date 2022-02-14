@@ -1,10 +1,23 @@
 import React from "react";
 import styled from "styled-components";
+import { styled as materialStyled } from "@mui/material/styles";
 import { NavLink as Link } from "react-router-dom";
 import { Favorite, LocalMovies } from "@mui/icons-material";
-import { Container } from "@mui/material";
+import { Container, Badge, BadgeProps } from "@mui/material";
+import { useRecoilState } from "recoil";
+import favoritesAtom from "@recoil/favorites/atom";
+
+const StyledBadge = materialStyled(Badge)<BadgeProps>(() => ({
+  "& .MuiBadge-badge": {
+    width: "16px",
+    minWidth: "16px",
+    height: "16px",
+    fontSize: "12px",
+  },
+}));
 
 const StyledMenu = styled.div`
+  top: 0;
   z-index: 99;
   height: 74px;
   position: fixed;
@@ -25,7 +38,7 @@ const StyledMenu = styled.div`
     font-size: 1.6rem;
     letter-spacing: -1px;
     color: white;
-    
+
     svg {
       vertical-align: -3px;
       color: var(--primary-color);
@@ -61,12 +74,16 @@ const StyledMenu = styled.div`
 `;
 
 export default function Menu() {
+  const [favorites] = useRecoilState(favoritesAtom);
+
   return (
     <StyledMenu>
       <Container maxWidth="lg">
         <div className="menu-container">
           <Link to="/">
-            <h1><LocalMovies /> AlloCinoche</h1>
+            <h1>
+              <LocalMovies /> AlloCinoche
+            </h1>
           </Link>
           <ul>
             <li>
@@ -90,7 +107,10 @@ export default function Menu() {
                 to="/favorite"
                 className={({ isActive }) => (isActive ? "active" : "")}
               >
-                Favorite <Favorite />
+                Favorite{" "}
+                <StyledBadge badgeContent={favorites.length} color="primary">
+                  <Favorite />
+                </StyledBadge>
               </Link>
             </li>
           </ul>

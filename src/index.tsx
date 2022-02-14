@@ -8,13 +8,13 @@ import "@csstools/normalize.css";
 
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import Movies from "@core/Movies";
-import MoviesContext from "@context/MoviesContext";
+import MovieApi from "@core/MovieApi";
+import MovieApiContext from "@context/MovieApiContext";
 
 const queryClient = new QueryClient({
   defaultOptions: { queries: { refetchOnWindowFocus: false } },
 });
-const moviesInstance = new Movies();
+const movieApiInstance = new MovieApi();
 
 const theme = createTheme({
   palette: {
@@ -30,11 +30,11 @@ ReactDOM.render(
     <RecoilRoot>
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
-          <MoviesContext.Provider value={moviesInstance}>
+          <MovieApiContext.Provider value={movieApiInstance}>
             <ThemeProvider theme={theme}>
               <App />
             </ThemeProvider>
-          </MoviesContext.Provider>
+          </MovieApiContext.Provider>
         </BrowserRouter>
       </QueryClientProvider>
     </RecoilRoot>

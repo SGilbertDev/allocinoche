@@ -15,7 +15,9 @@
       "@recoil": ["./recoil"],
       "@recoil/*": ["./recoil/*"],
       "@styles": ["./styles"],
-      "@styles/*": ["./styles/*"]
+      "@styles/*": ["./styles/*"],
+      "@assets": ["./assets"],
+      "@assets/*": ["./assets/*"]
     }
   }
 }

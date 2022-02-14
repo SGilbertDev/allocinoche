@@ -1,6 +1,6 @@
 import axios, { AxiosInstance } from "axios";
 
-export default class Movies {
+export default class MovieApi {
   axiosInstance: AxiosInstance;
 
   constructor() {
@@ -19,5 +19,9 @@ export default class Movies {
 
   fetchMovieById(id: number) {
     return this.axiosInstance.get(`movie/${id}`);
+  }
+
+  fetchRecommendations(id: number) {
+    return this.axiosInstance.get(`/movie/${id}/recommendations`);
   }
 }
