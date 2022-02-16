@@ -5,6 +5,10 @@
 
 > React application fetching movies from TMDB
 
+## Demo link
+
+https://main.dt3kq11zz5c3u.amplifyapp.com/
+
 ## Install
 
 ```sh
@@ -59,6 +63,3 @@ yarn test --coverage # With coverage
 ## Show your support
 
 Give a ⭐️ if this project helped you!
-
-***
-_This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
