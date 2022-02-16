@@ -5,7 +5,7 @@ export default class MovieApi {
 
   constructor() {
     this.axiosInstance = axios.create({
-      baseURL: "https://api.themoviedb.org/3/",
+      baseURL: "https://api.themoviedb.org/3",
       timeout: 1000,
       headers: {
         Authorization: `Bearer ${process.env.REACT_APP_TMDB_ACCESS_TOKEN}`,
@@ -14,7 +14,7 @@ export default class MovieApi {
   }
 
   fetchUpcomingMovies(page = 1) {
-    return this.axiosInstance.get("movie/upcoming/", { params: { page } });
+    return this.axiosInstance.get("movie/upcoming", { params: { page } });
   }
 
   fetchMovieById(id: number) {
@@ -22,6 +22,6 @@ export default class MovieApi {
   }
 
   fetchRecommendations(id: number) {
-    return this.axiosInstance.get(`/movie/${id}/recommendations`);
+    return this.axiosInstance.get(`movie/${id}/recommendations`);
   }
 }
