@@ -1,9 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import { Button, Grid, Link } from "@mui/material";
+import { Button, Grid } from "@mui/material";
+import { Link } from "react-router-dom";
 
 import Layout from "@components/Layout";
 import notFound from "@assets/images/404.jpeg";
+import routes from "@routes";
 
 const StyledNotFound = styled.div`
   padding-top: 150px;
@@ -25,7 +27,7 @@ export default function NotFound() {
           <Grid item>
             <p className="title">This page doesn't exist</p>
             <img src={notFound} alt="" />
-            <Link href="/" underline="none">
+            <Link to={routes.HOME}>
               <Button variant="contained">Please god, take me back</Button>
             </Link>
           </Grid>

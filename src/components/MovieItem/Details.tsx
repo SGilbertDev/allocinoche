@@ -5,13 +5,18 @@ import { Clear, Favorite } from "@mui/icons-material";
 import moment from "moment";
 
 import Movie from "@core/Movie";
+import mediaQueries from "@styles/mediaQueries";
 
 const StyledDetails = styled.div`
   h2 {
     font-size: 2.4rem;
     margin: 0 0 5px;
     font-weight: 800;
-    line-height: 30px;
+    line-height: 40px;
+
+    @media ${mediaQueries.smallUp}{
+      line-height: 30px;
+    }
   }
   p.release-date {
     margin: 3px 0 14px;
@@ -23,6 +28,13 @@ const StyledDetails = styled.div`
     svg {
       font-size: 1.1rem;
       margin-right: 10px;
+    }
+  }
+  .movie-tags {
+    margin-top: 18px;
+    
+    @media ${mediaQueries.smallUp}{
+      margin-top: 0;
     }
   }
   p.overview {
@@ -72,7 +84,7 @@ export default function Details({ movie, setFavorites, isFavorite }: Props) {
         </Grid>
       </Grid>
       <Grid container>
-        <Grid item lg={8}>
+        <Grid item lg={8} className="movie-tags">
           {movie.genres?.map((genre) => (
             <Chip
               key={genre.id}

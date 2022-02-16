@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { HighlightOff } from "@mui/icons-material";
+import { RemoveCircle } from "@mui/icons-material";
 
 import Movie from "@core/Movie";
+import mediaQueries from "@styles/mediaQueries";
+import routes from "@routes";
 
 const StyledMovieCard = styled.div<{ $moviePoster: string }>`
   position: relative;
@@ -26,15 +28,17 @@ const StyledMovieCard = styled.div<{ $moviePoster: string }>`
     opacity: 1;
   }
   .delete-button {
+    position: absolute;
+    right: -10px;
+    top: -10px;
     cursor: pointer;
     z-index: 2;
-    opacity: 0;
-    position: absolute;
-    right: 15px;
-    top: 15px;
-
-    &:hover {
-      opacity: 1;
+    opacity: 1;
+    @media ${mediaQueries.mediumUp} {
+      opacity: 0;
+      &:hover {
+        opacity: 1;
+      }
     }
   }
   a {
@@ -69,12 +73,12 @@ export default function MovieCard({
       className={isVisible ? "" : "animate__animated animate__zoomOut"}
     >
       {showFavorite && (
-        <HighlightOff
+        <RemoveCircle
           className="delete-button"
           onClick={() => setIsVisible(false)}
         />
       )}
-      <Link to={`/movie/${movie.id}`}>
+      <Link to={routes.MOVIE + movie.id}>
         <div className="movie-poster" />
         {movie.title}
       </Link>

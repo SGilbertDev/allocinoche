@@ -12,6 +12,27 @@ const TransitionUp = (props: SlideProps) => {
   return <Slide {...props} direction="up" />;
 };
 
+const FavoriteSnackbar = ({
+  showToast,
+  setShowToast,
+  text,
+}: Props & { text: string }) => {
+  return (
+    <Snackbar
+      key={text}
+      anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+      open={showToast}
+      onClose={() => setShowToast(false)}
+      autoHideDuration={1500}
+      TransitionComponent={TransitionUp}
+    >
+      <Alert severity="success" variant="filled">
+        {text}
+      </Alert>
+    </Snackbar>
+  );
+};
+
 export default function FavoriteToast({
   showToast,
   setShowToast,
@@ -19,17 +40,12 @@ export default function FavoriteToast({
 }: Props) {
   return (
     <Portal>
-      <Snackbar
-        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-        open={showToast}
-        onClose={() => setShowToast(false)}
-        autoHideDuration={1500}
-        TransitionComponent={TransitionUp}
-      >
-        <Alert severity="success" variant="filled">
-          {isFavorite ? "Added to favorite" : "Removed from favorite"}
-        </Alert>
-      </Snackbar>
+      <FavoriteSnackbar
+        showToast={showToast}
+        setShowToast={setShowToast}
+        isFavorite={isFavorite}
+        text={isFavorite ? "Added to favorite" : "Removed from favorite"}
+      />
     </Portal>
   );
 }

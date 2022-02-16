@@ -17,7 +17,8 @@
       "@styles": ["./styles"],
       "@styles/*": ["./styles/*"],
       "@assets": ["./assets"],
-      "@assets/*": ["./assets/*"]
+      "@assets/*": ["./assets/*"],
+      "@routes": ["./routes.json"]
     }
   }
 }

@@ -10,6 +10,7 @@ import Movie from "@core/Movie";
 import FavoriteToast from "@components/commons/FavoriteToast";
 import useIntersectionObserver from "@hooks/useIntersectionObserver";
 import favoritesAtom from "@recoil/favorites/atom";
+import routes from "@routes";
 
 const StyledMovieTile = styled.div`
   animation-duration: 0.8s;
@@ -87,12 +88,12 @@ export default function MovieTile({ movie }: Props) {
       />
       <Grid container spacing={2}>
         <Grid item xs="auto">
-          <Link to={`/movie/${movie.id}`}>
+          <Link to={routes.MOVIE + movie.id}>
             <img src={movie.getMoviePoster(200)} alt="Movie poster" />
           </Link>
         </Grid>
         <Grid item xs zeroMinWidth>
-          <Link to={`/movie/${movie.id}`}>
+          <Link to={routes.MOVIE + movie.id}>
             <h3>{movie.title}</h3>
           </Link>
           {isFavorite ? (

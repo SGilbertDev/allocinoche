@@ -9,6 +9,7 @@ import useIntersectionObserver from "@hooks/useIntersectionObserver";
 import Movie from "@core/Movie";
 import Layout from "@components/Layout";
 import { LocalMovies } from "@mui/icons-material";
+import mediaQueries from "@styles/mediaQueries";
 
 const StyledList = styled.div<{ $topBackground: string }>`
   .title-container {
@@ -17,14 +18,20 @@ const StyledList = styled.div<{ $topBackground: string }>`
     background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5)),
       url(${({ $topBackground }) => $topBackground});
     background-position: center;
-    height: 200px;
-    margin-bottom: 60px;
+    height: 120px;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    @media ${mediaQueries.mediumUp} {
+      height: 200px;
+      margin-bottom: 60px;
+    }
 
     h2 {
       margin: 0;
       text-align: center;
       font-size: 2rem;
-      padding-top: 80px;
     }
   }
   .MuiLinearProgress-root {
@@ -99,7 +106,10 @@ export default function List() {
           </Grid>
           <Grid container justifyContent="center">
             <Grid item>
-              <div ref={loadMoreRef} className={`bottom-indicator ${hasNextPage ? 'hide' : ''}`}>
+              <div
+                ref={loadMoreRef}
+                className={`bottom-indicator ${hasNextPage ? "hide" : ""}`}
+              >
                 <LocalMovies />
                 {!hasNextPage && <p>No movies left 😩</p>}
               </div>

@@ -1,13 +1,15 @@
-import React, { useContext, Fragment } from "react";
+import React, { useContext } from "react";
 import { useQueries } from "react-query";
 import { useRecoilState } from "recoil";
-import { Grid, Container, Link, Button } from "@mui/material";
+import { Grid, Container, Button } from "@mui/material";
+import { Link } from "react-router-dom";
 
 import Movie from "@core/Movie";
 import Layout from "@components/Layout";
 import MovieCard from "@components/commons/MovieCard";
 import favoritesAtom from "@recoil/favorites/atom";
 import MovieApiContext from "@context/MovieApiContext";
+import routes from "@routes";
 
 export default function Favorite() {
   const movieApiInstance = useContext(MovieApiContext);
@@ -24,13 +26,13 @@ export default function Favorite() {
   );
 
   return (
-    <Layout isLoading={false}>
+    <Layout>
       <Container maxWidth="lg">
-        <h2>My favorites</h2>
+        <h2>My favorites 💛</h2>
         {!!favoritesQuery.length && (
           <Grid key={favorites.length} container spacing={5}>
             {favoritesQuery?.map((queryResults: any, index: any) => (
-              <Grid key={queryResults?.data?.data.id || index} item xs={12} sm={6} md={3}>
+              <Grid key={queryResults?.data?.data.id || index} item xs={6} md={3}>
                 <MovieCard
                   movie={new Movie(queryResults?.data?.data)}
                   showFavorite
@@ -45,8 +47,8 @@ export default function Favorite() {
         {!favoritesQuery.length && (
           <Grid container justifyContent="center">
             <Grid item xs={12} style={{ textAlign: "center" }}>
-              <p style={{ marginTop: 150 }}>Looks like your list is empty</p>
-              <Link href="/list" underline="none">
+              <p style={{ marginTop: 150 }}>Looks like your list is empty 😩</p>
+              <Link to={routes.LIST}>
                 <Button variant="contained">Add movies</Button>
               </Link>
             </Grid>

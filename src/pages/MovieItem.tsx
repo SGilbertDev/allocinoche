@@ -97,6 +97,7 @@ export default function MovieItem() {
             direction="row"
             className="top-movie-container"
             spacing={3}
+            justifyContent="center"
           >
             <Grid item xs="auto">
               <div className="top-movie-container__information">

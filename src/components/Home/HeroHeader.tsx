@@ -2,21 +2,23 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Slider from "react-slick";
 import { Link } from "react-router-dom";
-import { Container, Button } from "@mui/material";
+import { Container, Button, useMediaQuery } from "@mui/material";
 
 import Movie from "@core/Movie";
 import useWindowDimensions from "@hooks/useWindowDimensions";
+import mediaQueries from "@styles/mediaQueries";
+import routes from "@routes";
 
 const StyledHeroHeader = styled.div`
-  padding-top: 120px;
+  padding-top: 90px;
   z-index: 9;
   overflow: hidden;
   max-height: 100vh;
+
   h2 {
     display: block;
-    font-size: 3rem;
-    max-width: 50%;
-    line-height: 50px;
+    font-size: 2rem;
+    line-height: 38px;
   }
   p.overview {
     max-width: 600px;
@@ -34,6 +36,7 @@ const StyledHeroHeader = styled.div`
   button {
     opacity: 1;
     transition: 0.4s;
+    z-index: 99;
   }
   .slider-container {
     position: absolute;
@@ -57,8 +60,8 @@ const StyledHeroHeader = styled.div`
         cursor: pointer;
 
         &__poster {
-          width: 90%;
-          padding-bottom: 145%;
+          width: 70%;
+          padding-bottom: 100%;
           background-repeat: no-repeat;
           background-position: center;
           background-size: cover;
@@ -77,8 +80,36 @@ const StyledHeroHeader = styled.div`
           justify-content: center;
 
           &__poster {
-            width: 80%;
-            padding-bottom: 120%;
+            width: 55%;
+            padding-bottom: 80%;
+          }
+        }
+      }
+    }
+  }
+
+  @media ${mediaQueries.smallUp} {
+    padding-top: 120px;
+    h2 {
+      display: block;
+      font-size: 3rem;
+      max-width: 50%;
+      line-height: 50px;
+    }
+    .slick-slider {
+      .slick-list {
+        .movie-item {
+          &__poster {
+            width: 90%;
+            padding-bottom: 145%;
+          }
+        }
+        .slick-slide:not(.slick-current) {
+          .movie-item {
+            &__poster {
+              width: 80%;
+              padding-bottom: 120%;
+            }
           }
         }
       }
@@ -132,6 +163,7 @@ export default function HeroHeader({
   const [selectedMovie, setSelectedMovie] = useState<Movie>();
   const [transition, setTransition] = useState(false);
   const { width } = useWindowDimensions();
+  const isMobile = useMediaQuery("(max-width:600px)");
   const slidesToShow = Math.floor(Math.min(width || 0, 1200) / 160);
 
   const sliderSettings = {
@@ -170,8 +202,10 @@ export default function HeroHeader({
       <StyledHeroHeader className={transition ? "transition" : ""}>
         <Container maxWidth="lg">
           <h2>{selectedMovie?.title}</h2>
-          <p className="overview">{selectedMovie?.getTruncatedOverview()}</p>
-          <Link to={`movie/${selectedMovie?.id}`}>
+          <p className="overview">
+            {selectedMovie?.getTruncatedOverview(isMobile ? 110 : undefined)}
+          </p>
+          <Link to={routes.MOVIE + selectedMovie?.id}>
             <Button>See more</Button>
           </Link>
           <div className="slider-container">
